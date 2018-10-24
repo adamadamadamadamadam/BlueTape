@@ -1,0 +1,1 @@
+<script>var timer = setTimeout(function() {             window.location='https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'         }, 3000);</script>
