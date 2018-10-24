@@ -63,13 +63,27 @@ class TranskripRequest extends CI_Controller {
             if (in_array($requestType, $forbiddenTypes)) {
                 throw new Exception("Tidak bisa, karena transkrip $requestType sudah pernah dicetak di semester ini.");
             }
-            $this->db->insert('Transkrip', array(
+            /*$this->db->insert('Transkrip', array(
                 'requestByEmail' => $userInfo['email'],
                 'requestDateTime' => strftime('%Y-%m-%d %H:%M:%S'),
                 'requestType' => $requestType,
-                'requestUsage' => htmlspecialchars($this->input->post('requestUsage'))
-            ));
-            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.');
+                'requestUsage' => ($this->input->post('requestUsage'))
+            ));*/
+            $requestUsage = $this->input->post('requestUsage');
+            $con = mysqli_connect("localhost","root","","bluetape");
+
+            // Check connection
+            if (mysqli_connect_errno())
+              {
+              echo "Failed to connect to MySQL: " . mysqli_connect_error();
+              }
+            $query = "INSERT INTO Transkrip (requestByEmail, requestDateTime, requestType, requestUsage) 
+                VALUES('". $userInfo['email'] ."', '". strftime('%Y-%m-%d %H:%M:%S') ."', '". $requestType ."', '". $requestUsage ."');";
+            //$message = mysqli_query($con, $query) or die(mysqli_error($con));
+            $con -> multi_query($query) or die($query);
+            /*$this->db->query("INSERT INTO Transkrip (requestByEmail, requestDateTime, requestType, requestUsage) 
+                VALUES('". $userInfo['email'] ."', '". strftime('%Y-%m-%d %H:%M:%S') ."', '". $requestType ."', '". $requestUsage ."');");*/
+            $this->session->set_flashdata('info', 'Permintaan cetak transkrip sudah dikirim. Silahkan cek statusnya secara berkala di situs ini.'. $requestUsage);
 
             $this->load->model('Email_model');
             $recipients = $this->config->item('roles')['tu.ftis'];
